@@ -2,10 +2,12 @@ import React , { useState, useContext } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import Constants from 'expo-constants';
 import MyButton from '../components/MyButton';
-import ThemeContext from '../App.js'
+import { back } from 'react-native/Libraries/Animated/src/Easing';
+
 
 export default function CounterScreen(props) {
     let [count, setCount] = useState(0)
+    let [theme, setTheme] = useState('light');
 
   _decreaseCount = (num) => {
     setCount(prevCount => prevCount - num)
@@ -16,16 +18,16 @@ export default function CounterScreen(props) {
   }
 
   _changeTheme = () => {
-      setTheme(prevTheme => {
+      setTheme(prevTheme => 
           prevTheme === 'light' ? 'dark' : 'light'
-      })
+      )
   }
 
-  const [theme, setTheme] = useContext(ThemeContext);
+  //const [theme, setTheme] = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, theme === 'light' ? styles.darkTheme : styles.container]}>
-      <Text style={styles.countView}>{count}</Text>
+    <View style={[styles.container, theme === 'light' ? styles.lightTheme: styles.darkTheme ]}>
+      <Text style={[styles.countView, theme === 'light' ? styles.coutViewLight: styles.coutViewDark]}>{count}</Text>
       <View style={styles.buttonGroup}>
         <MyButton title="-1" onMyPress={() => _decreaseCount(1)} />
         <MyButton title="+1" onMyPress={() => _increaseCount(1)} />
@@ -39,8 +41,7 @@ export default function CounterScreen(props) {
         <MyButton title="+5" onMyPress={() => _increaseCount(5)} />
       </View>
 
-      <Button title="Settings" onPress={() => props.navigation.navigate('SettingScreen')} />
-      <Button title='Change Theme' onPress={() => _changeTheme} />
+      <Button title="Change Theme" onPress={() => _changeTheme()} />
     </View>
   );
 }
@@ -49,8 +50,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
     padding: 8,
   },
   countView: {
@@ -66,6 +65,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   darkTheme: {
-      backgroundColor: 'black'
+    backgroundColor: '#1a0000',
+  },
+  lightTheme: {
+    backgroundColor: '#ecf0f1',
+  },
+  coutViewDark: {
+    color: '#e600ac',
+  },
+  coutViewLight: {
+    color: '#000000',
   }
 });
