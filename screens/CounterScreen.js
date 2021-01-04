@@ -23,6 +23,10 @@ export default function CounterScreen(props) {
       )
   }
 
+  _resetCount = () => {
+    setCount(0);
+  }
+
   //const [theme, setTheme] = useContext(ThemeContext);
 
   return (
@@ -40,7 +44,7 @@ export default function CounterScreen(props) {
         <MyButton title="-5" onMyPress={() => _decreaseCount(5)} />
         <MyButton title="+5" onMyPress={() => _increaseCount(5)} />
       </View>
-
+      <MyButton title="Reset" onMyPress={_resetCount} style={styles.resetButton}/>
       <Button title="Change Theme" onPress={() => _changeTheme()} />
     </View>
   );
@@ -75,5 +79,10 @@ const styles = StyleSheet.create({
   },
   coutViewLight: {
     color: '#000000',
+  }, 
+  resetButton: {
+    textAlign: 'center',
+    marginHorizontal: 20,
+    marginVertical: 10,
   }
 });

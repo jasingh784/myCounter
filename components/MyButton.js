@@ -7,7 +7,7 @@ export default function MyButton(props) {
     
     return (
     <Pressable onPress={props.onMyPress}>
-        <Text style={styles.button}>{props.title}</Text>
+        <Text style={[styles.button, props.style]}>{props.title}</Text>
     </Pressable>
     );
 }
